@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import hasi from "../data/assets/hasi.png";
 
 export function useMouseCoordinates() {
-  // ✅ get the setCoordinates function back too!
-  // 👀 const [coordinates, setCoordinates] = useState(...)
-  const [coordinates] = useState({
+  const [coordinates, setCoordinates] = useState({
     clientX: 0,
     clientY: 0,
   });
@@ -15,7 +13,13 @@ export function useMouseCoordinates() {
      set state with the clientX and clientY coordinates from the event
      👀 function handler(event) {}
     */
-
+    function handleMouseMove(event){
+      setCoordinates({
+        clientX: event.clientX, 
+        clientY: event.clientY,
+      });
+    }
+    window.addEventListener("mousemove", handleMouseMove)
     /* 
      ✅ attach an event listener to the window for the mousemove event
      📃 https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event
@@ -27,6 +31,7 @@ export function useMouseCoordinates() {
        ✅ make sure to clean up your event listeners when your hook is no longer in use!
        👀 window.removeEventListener("mousemove", handler)
       */
+      window.removeEventListener("mousemove", handleMouseMove)
     };
   }, []);
 
